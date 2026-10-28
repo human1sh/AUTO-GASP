@@ -2,15 +2,19 @@
 
 **Automated 1-Component Sérsic GALFIT & SExtractor Processing Pipeline**
 
-AUTO-GASP is an automated Python pipeline designed for multi-wavelength astronomical galaxy decomposition and Sérsic profile fitting. It integrates **SExtractor** for automated source detection and segmentation masking with **GALFIT** for single-component (1C) Sérsic profile parameter extraction, diagnostic plotting, and parameter logging.
+AUTO-GASP is an automated Python pipeline designed for multi-wavelength astronomical galaxy decomposition and Sérsic profile fitting. It integrates **SExtractor** for automated source detection and segmentation masking with **GALFIT** for single-component (1C) Sérsic profile parameter extraction, diagnostic plotting, and parameter logging.  
+
+### Motivation & Background
+I originally built this pipeline in mid-2024 to automate the tedious and repetitive process of manually configuring masking parameters and initial guesses when analyzing large samples of galaxies. Having worked extensively with multi-component photometric decomposition of elliptical galaxies across optical Sloan Digital Sky Survey (SDSS) and Dark Energy Camera Legacy Survey (DECaLS) datasets, I wanted a hands-off, robust tool that could handle everything from target masking to post-fit residual diagnostics without sacrificing scientific accuracy.
 
 ---
 
 ## Table of Contents
 - [AUTO-GASP](#auto-gasp)
+    - [Motivation \& Background](#motivation--background)
   - [Table of Contents](#table-of-contents)
   - [Features](#features)
-  - [Repository Structure](#repository-structure)
+  - [Repository Structure and input file requirements](#repository-structure-and-input-file-requirements)
   - [System \& Software Prerequisites](#system--software-prerequisites)
     - [1. Astronomical Binary Dependencies](#1-astronomical-binary-dependencies)
     - [2. Python Environment](#2-python-environment)
@@ -40,7 +44,8 @@ AUTO-GASP is an automated Python pipeline designed for multi-wavelength astronom
 
 ---
 
-## Repository Structure
+## Repository Structure and input file requirements
+For the pipeline to process target data correctly, all input subdirectories inside data/ must follow the RD={RA},{DEC} naming convention (where coordinates match the cutout center). Each folder must contain three input FITS files with these exact filenames:
 
 ```text
 AUTO-GASP/
@@ -60,11 +65,12 @@ AUTO-GASP/
 │   ├── galfit_runner.py        # GALFIT execution wrapper & parameter updater
 │   └── post_galfit.py          # Output image block parser & parameter log generator
 └── data/                       # Working target directories (Format: RD=<RA>,<DEC>)
-    └── RD=189.231,12.315/
-        ├── I_image.fits        # Raw target galaxy FITS image
+    └── RD={RA},{DEC}/
+        ├── I_image.fits        # Science frame containing the primary galaxy target 
+        ├── I_weight.fits       # Inverse-variance weight (or variance/error) map
+        ├── I_psf.fits          # Point Spread Function (PSF) model image
         └── gal-prop.fits       # Pre-extracted target catalog property FITS table
 ```
-
 ---
 
 ## System & Software Prerequisites
@@ -144,7 +150,7 @@ pip install numpy matplotlib astropy photutils scipy
 To run the pipeline on a single galaxy target folder (e.g., `data/RD=189.231,12.315`):
 
 ```bash
-python main.py --ra 189.231 --dec 12.315 --id 0
+python main.py --ra 189.231 --dec 12.315
 ```
 
 ### Batch Execution
@@ -179,6 +185,6 @@ Upon successful completion, each target folder (`data/RD=<RA>,<DEC>/`) will cont
 | `gal-prop.fits` | Target galaxy spatial property FITS table |
 | `1.SExtractor-segmentation.png` | 3-panel plot: `SEG`, `APER`, and `SEGM` images |
 | `galfit.01` | GALFIT fitted parameter log file |
-| `imgblock.fits` / `galfit.01-imgblock.fits` | 3D FITS block containing Original, Model, and Residual images |
+| `imgblock.fits` | 3D FITS block containing Original, Model, and Residual images |
 | `2.Galfit-decomposition-1C.png` | 3-panel plot: `MAIN`, `MODEL`, and `RESIDUAL` fit maps |
 | `galfit_params.txt` | Extracted numerical Sérsic parameters tuple |
