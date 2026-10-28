@@ -1,4 +1,5 @@
 # Output images and temporary FITS blocks
+data
 *.log
 *1.SEG.fits
 *2.SEGM.fits
