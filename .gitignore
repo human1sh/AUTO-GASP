@@ -1,0 +1,14 @@
+# Output images and temporary FITS blocks
+*.log
+*1.SEG.fits
+*2.SEGM.fits
+*3.APER.fits
+*-imgblock.fits
+galfit.*
+
+# Compiled Python files
+__pycache__/
+*.pyc
+
+# IDE configurations
+.vscode/

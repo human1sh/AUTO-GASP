@@ -1,0 +1,10 @@
+#   1 ALPHA_J2000            Right ascension of barycenter (J2000)                      [deg]
+#   2 DELTA_J2000            Declination of barycenter (J2000)                          [deg]
+#   3 X_IMAGE                Object position along x                                    [pixel]
+#   4 Y_IMAGE                Object position along y                                    [pixel]
+#   5 FLUX_AUTO              Flux within a Kron-like elliptical aperture                [count]
+#   6 KRON_RADIUS            Kron apertures in units of A or B                         
+#   7 A_IMAGE                Profile RMS along major axis                               [pixel]
+#   8 B_IMAGE                Profile RMS along minor axis                               [pixel]
+#   9 THETA_IMAGE            Position angle (CCW/x)                                     [deg]
+133.2556794 +32.1887170     43.1494     38.6065     171769.5  3.50     6.476     4.589   5.87
