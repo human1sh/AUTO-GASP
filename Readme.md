@@ -77,8 +77,8 @@ AUTO-GASP/
 
 ### 1. Astronomical Binary Dependencies
 Ensure the following tools are installed and available in your shell environment:
-- **GALFIT** (v3.0.7d or later)
-- **SExtractor** / **Source-Extractor** (`source-extractor` or `sex`)
+- **GALFIT** (v3.0.7d or later) — Binaries and updates can be found on the GALFIT User Group in Facebook
+- **SExtractor** / **Source-Extractor** (`source-extractor` or `sex`) — Available via APT package manager (`sudo apt install source-extractor`)
 - **CFITSIO** shared libraries
 
 ### 2. Python Environment
